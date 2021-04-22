@@ -1,33 +1,33 @@
 <?php
     class Voiture{
-        private $marque;
+       private $marque;
         private $couleur;
         private $immatriculation;
         
         
-        
+        public function __construct($marque,$couleur,$immatriculation){
+            $this->marque=$marque;
+            $this->couleur=$couleur;
+            $this->immatriculation=$immatriculation;
+        }
         public function getMarque(){
             return $this->marque;
         }
         public function setMarque($marque2){
             $this->marque =$marque2;
         }
-        public function __construct($m,$c,$i){
-            $this->marque=$m;
-            $this->couleur=$c;
-            $this->immatriculation=$i;
-        }
+        
         public function afficher(){
             echo $this->marque;
             echo $this->couleur;
             echo $this->immatriculation;
         }
-        static public function getVoitureByImmat($immat) {
+        public function getVoitureByImmat($immatriculation) {
             $sql = "SELECT * from voiture2 WHERE immatriculation=:nom_tag";
             // Préparation de la requête
             $req_prep = Model::$pdo->prepare($sql);
             $values = array(
-            "nom_tag" => $immat,
+            "nom_tag" => $immatriculation,
             //nomdutag => valeur, ...
             );
             // On donne les valeurs et on exécute la requête
@@ -40,9 +40,24 @@
             return false;
             return $tab_voit[0];
            }
-          
+          public function save($immatriculation,$marque,$couleur){
+              echo $marque;
+                $sql="INSERT INTO voiture2(immatriculation,marque,couleur)VALUES('$immatriculation','$marque','$couleur')";
+                $req = Model::$pdo->prepare($sql);
+                
+                $values = array(
+                    "marque" =>$marque,
+                    
+                    );
+                $req->execute();
+                $req->setFetchMode(PDO::FETCH_CLASS, 'Voiture');
+                print_r($values);
+              
+              
+          }
         
     }
+    //Voiture::getVoitureByImmat("12345",Model::$pdo);//
 
 
 ?>

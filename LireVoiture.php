@@ -6,7 +6,7 @@
     $rep =Model::$pdo->query($sql);
     $tabObj=$rep->fetchAll(PDO::FETCH_OBJ);
     
-    print_r($tabObj);
+    
     echo "<table border='1'>";
     echo "<tr><th>immatriculation</th>";
     echo "<th>marque</th>";
@@ -19,9 +19,12 @@
     echo"</table>";
    
     
-    $tabObj2 = $rep->setFetchMode(PDO::FETCH_CLASS,'voiture');
-    $constructeur = new Voiture("opel","blanc","5432");
-    $constructeur->getVoitureByImmat();
+    //$tabObj2 = $rep->setFetchMode(PDO::FETCH_CLASS,'voiture');
+    $constructeur = new Voiture("porsche","vert","et94ryre");
+    //$constructeur->afficher();
+    //$fonction= $constructeur->getVoitureByImmat("710097");//
+    //$save =$constructeur->save("porsche",'carrera','564ezt');
+   
     
   
 ?>
